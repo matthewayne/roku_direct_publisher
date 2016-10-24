@@ -1,0 +1,24 @@
+{
+    "providerName": "Acme Productions",
+    "lastUpdated": "2015-11-11T22:21:37+00:00",
+    "language": "en",
+    "shortFormVideos":  [
+        {
+          "id": "1509428502952",
+          "title": "The Amazing Short-form Video",
+          "content": {
+                "dateAdded": "2015-11-11T22:21:37+00:00",
+                "videos": [
+                    {
+                    "url": "https://example.org/cdn/videos/1509428502952",
+                    "quality": "UHD",
+                    "videoType": "HLS"
+                    }
+                ],
+                "duration": 1290
+            },
+          "thumbnail": "https://example.org/cdn/thumbnails/1509428502952/1",
+          "shortDescription": "Astonishing short-form video"
+        }
+    ],
+}

@@ -1,0 +1,7 @@
+<form method=post >
+	Channel Name (name of the channel that is displayed to others):
+	<input type="text" value="{%if channel_name%}{{channel_name}}{%endif%}" name="channel_name" />
+	 Channel Launuage (ISO 639 alpha-2 or alpha-3 language code string, e.g. “en”, “en-US”, “es”, etc.)
+	<input type="text" value="{%if channel_lang%}{{channel_lang}}{%endif%}" name="channel_lang" />
+	<input type=submit value=Sumbit>
+</form>

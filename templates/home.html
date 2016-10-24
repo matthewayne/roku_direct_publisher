@@ -1,0 +1,12 @@
+<ul>
+	<li><a href="/edit/channel">Edit Channel Data</a></li>
+	<li><a href="/edit/shortFormVideos/">Upload new Videos</a></li>
+</ul>
+{% if videos %}
+<h3>Edit existing Video</h3>
+<ul>
+	{% for video in videos %}
+	<li><a href="/edit/{{video['id']}}">{{video['title']}}</a></li>
+	{% endfor %}
+</ul>
+{% endif %}

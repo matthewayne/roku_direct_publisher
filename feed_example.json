@@ -1,0 +1,165 @@
+{
+    "providerName": "Acme Productions",
+    "lastUpdated": "2015-11-11T22:21:37+00:00",
+    "language": "en",
+    "categories": [
+        {
+            "name": "Cooking Shows",
+            "query": "cooking AND reality shows",
+            "order": "most_popular"
+        },
+        {
+            "name": "Featured",
+            "playlistName": "featured content",
+            "order": "manual"
+        }
+    ],
+    "playlists": [
+        {
+            "name": "featured content",
+            "itemIds": [
+                "1509428502952",
+                "1509428502953",
+                "1509428502954"
+            ]
+        }
+    ],
+    "movies": [
+        {
+            "id": "1509428502952",
+            "title": "Sample Movie",
+            "content": {
+                "dateAdded": "2015-11-11T22:21:37+00:00",
+                "videos": [
+                    {
+                    "url": "https://example.org/cdn/videos/1509428502952",
+                    "quality": "UHD",
+                    "videoType": "HLS"
+                    }
+                ],
+                "trickPlayFiles": [
+                    {
+                      "url": "https://example.org/cdn/trickplayFiles/1509428502952/1",
+                      "quality": "FHD"
+                    }
+                ],
+                "duration": 1290
+            },
+            "genres": [
+                "drama",
+                "comedy",
+                "horror"
+            ],
+            "thumbnail": "https://example.org/cdn/thumbnails/1509428502952/1",
+            "releaseDate": "2016-01-01",
+            "shortDescription": "Incredible movie description",
+            "longDescription": "Even more incredible and longer movie description",
+            "tags": [
+                "amazing",
+                "drama",
+                "comedy",
+                "horror"
+            ]
+        }
+    ],
+    "series": [
+        {
+          "id": "1509428502952",
+          "title": "The Amazing Series with Seasons!",
+          "seasons": [
+            {
+              "seasonNumber": "1",
+              "episodes": [
+                {
+                  "id": "1509428502952",
+                  "title": "The Amazing First Episode Title",
+                  "content": {
+                        "dateAdded": "2015-11-11T22:21:37+00:00",
+                        "videos": [
+                            {
+                            "url": "https://example.org/cdn/videos/1509428502952",
+                            "quality": "UHD",
+                            "videoType": "HLS"
+                            }
+                        ],
+                        "trickPlayFiles": [
+                            {
+                              "url": "https://example.org/cdn/trickplayFiles/1509428502952/1",
+                              "quality": "FHD"
+                            }
+                        ],
+                        "duration": 1290
+                    },
+                  "thumbnail": "https://example.org/cdn/thumbnails/1509428502952/1",
+                  "episodeNumber": 1,
+                  "shortDescription": "Marvelous episode description"
+                }
+              ]
+            }
+          ],
+          "genres": [
+            "educational",
+            "science fiction",
+            "thriller",
+          ],
+          "thumbnail": "https://example.org/cdn/thumbnails/1509428502952/1",
+          "shortDescription": "Wondrous series seasons."
+        }
+    ],
+    "shortFormVideos":  [
+        {
+          "id": "1509428502952",
+          "title": "The Amazing Short-form Video",
+          "content": {
+                "dateAdded": "2015-11-11T22:21:37+00:00",
+                "videos": [
+                    {
+                    "url": "https://example.org/cdn/videos/1509428502952",
+                    "quality": "UHD",
+                    "videoType": "HLS"
+                    }
+                ],
+                "trickPlayFiles": [
+                    {
+                      "url": "https://example.org/cdn/trickplayFiles/1509428502952/1",
+                      "quality": "FHD"
+                    }
+                ],
+                "duration": 1290
+            },
+          "thumbnail": "https://example.org/cdn/thumbnails/1509428502952/1",
+          "shortDescription": "Astonishing short-form video",
+          "releaseDate": "2016-01-01"
+        }
+    ],
+    "tvSpecials": [
+        {
+          "id": "1509428502952",
+          "title": "The Amazing First Episode Title",
+          "content": {
+                "dateAdded": "2015-11-11T22:21:37+00:00",
+                "videos": [
+                    {
+                    "url": "https://example.org/cdn/videos/1509428502952",
+                    "quality": "UHD",
+                    "videoType": "HLS"
+                    }
+                ],
+                "trickPlayFiles": [
+                    {
+                      "url": "https://example.org/cdn/trickplayFiles/1509428502952/1",
+                      "quality": "FHD"
+                    }
+                ],
+                "duration": 1290
+            },
+          "genres": [
+            "animals",
+            "animated",
+            "fantasy",
+          ],
+          "thumbnail": "https://example.org/cdn/thumbnails/1509428502952/1",
+          "shortDescription": "Unusual episode description"
+        }
+    ]
+}

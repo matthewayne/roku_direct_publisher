@@ -1,0 +1,72 @@
+
+{
+    "providerName": "Acme Productions",
+    "lastUpdated": "2015-11-11T22:21:37+00:00",
+    "language": "en",
+    "categories": [
+        ...
+    ],
+    "playlists": [
+        ...
+    ],
+    "movies": [
+        ...
+    ],
+    "series": [
+        ...
+    ],
+    "shortFormVideos":  [
+        ...
+    ],
+    "tvSpecials": [
+        ...
+    ]
+}
+
+
+
+endpoints
+    httpauth
+        edit/channel
+        edit/shortFormVideos
+
+        edit/playlists
+        edit/movies
+        edit/series
+        edit/tvSpecials
+
+
+    http
+        feed/json
+        
+        feed/mrss
+
+
+Architect a app
+    storage?
+        everything to /static (including json feed)
+        update only on edit change/upload
+    writing to /static ?
+
+
+FILE TYPES:
+    VOD
+        MP4
+        MOV
+        M4V
+    LIVE
+        HLS
+        SMOOTH
+        DASH
+
+
+POC/MVP
+    edit/channel
+        Channel Name (name of the channel that is displayed to others) string
+        Channel Launuage (ISO 639 alpha-2 or alpha-3 language code string, e.g. “en”, “en-US”, “es”, etc.) string
+    edit/shortFormVideos
+        Video Title (the title of the video) string
+        Thumbnail (the thumbnail of the video, 800x450 or larger must be 16:9) file
+        Description (description of the video) string (text area)
+        Video (the video to be uploaded)
+
