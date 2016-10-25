@@ -13,7 +13,7 @@ def get_metadata(file):
     else:
         quality = "HD"
 
-    duration = float(video_metadata['streams'][1]['duration'])
+    duration = int(video_metadata['streams'][1]['duration'])
 
     return quality, duration
 #
