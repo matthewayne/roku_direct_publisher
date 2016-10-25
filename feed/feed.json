@@ -1,0 +1,24 @@
+{
+    "providerName": "Test Channel Name", 
+    "shortFormVideos": [
+        {
+            "content": {
+                "duration": 4.268333, 
+                "dateAdded": "2016-10-24T20:12:38+00:00", 
+                "videos": [
+                    {
+                        "url": "http://localhost:8080/feed/videos/1c7c5bae68cc8c11e89a0a3034297796.MOV", 
+                        "videoType": "MOV", 
+                        "quality": "HD"
+                    }
+                ]
+            }, 
+            "thumbnail": "http://localhost:8080/feed/thumbnails/66dda3ac1338c96b54e168f0fe69f835", 
+            "shortDescription": "description", 
+            "id": 1, 
+            "title": "this is a video title"
+        }
+    ], 
+    "language": "en-US", 
+    "lastUpdated": "2016-10-24T20:12:38+00:00"
+}

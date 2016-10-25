@@ -1,20 +1,22 @@
 
 import json
 import os
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, redirect, url_for, render_template, flash
 import datetime
 import hashlib
-from video_metadata import get_multimedia_metadata, find_executable
+from video_metadata import get_metadata
 
+
+SERVER_NAME = "http://localhost:8080/"
 UPLOAD_FOLDER = '/feed/temp'
 ALLOWED_EXTENSIONS = set(['m4v', 'mp4', 'mov'])
 SECRET_KEY = "dvk9vkr0egao4n25lfc8"
 APP_ROOT = os.path.dirname(os.path.abspath(__file__)) 
 APP_FEED = os.path.join(APP_ROOT, 'feed')
 APP_VIDEO = os.path.join(APP_FEED, 'videos')
-APP_THUMBNAIL = os.path.join(APP_FEED, 'thumbnail')
+APP_THUMBNAIL = os.path.join(APP_FEED, 'thumbnails')
 
-app = Flask(__name__, static_url_path='feed', static_folder='feed')
+app = Flask(__name__, static_url_path='/feed', static_folder='feed')
 
 app.secret_key = SECRET_KEY
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -29,16 +31,18 @@ def landing():
   return render_template("home.html", videos=videos)
 
 @app.route('/edit/channel', methods=['GET', 'POST'])
-def upload_file():
+def edit_channel():
     feed = get_feed()
     if request.method == 'POST':
-      if "channel_lang" not in request.form.keys() or "channel_name" not in request.form.keys():
-        flash('No video thumbnail uploaded')
+      if len(request.form["channel_lang"]) == 0 or len(request.form["channel_name"]) == 0:
+        flash('please fill out the name and language')
         return redirect(request.url)
       else:
-        feed['providerName'] = request.form['channel_name']
-        feed['language'] = request.form['channel_lang']
+        feed['providerName'] = str(request.form['channel_name'])
+        feed['language'] = str(request.form['channel_lang'])
+        print feed
         set_feed(feed)
+        return "changes saved<br><a href=\"\\\">Go home</a>"
 
     elif request.method == 'GET':
       try:
@@ -84,8 +88,12 @@ def upload_file(vid_id=None):
       thumbnail_url = process_thumbnail(video_thumbnail)
       
       if not vid_id:
-        largest_id = max([vid["id"] for vid in feed['shortFormVideos']])
-        vid_id = largest_id + 1
+        try:
+          largest_id = max([vid["id"] for vid in feed['shortFormVideos']])
+          vid_id = largest_id + 1
+        except KeyError:
+          vid_id = 1
+          feed["shortFormVideos"] = []
       
         dateAdded = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S") + "+00:00"
 
@@ -100,7 +108,7 @@ def upload_file(vid_id=None):
               "quality": quality,
               "videoType":vid_type
               }],
-              "duration": duraction
+              "duration": duration
             },
             "thumbnail": thumbnail_url,
             "shortDescription":request.form['video_description']
@@ -118,14 +126,13 @@ def upload_file(vid_id=None):
               "quality": quality,
               "videoType":vid_type
               }],
-              "duration": duraction
+              "duration": duration
             },
             "thumbnail": thumbnail_url,
             "shortDescription":request.form['video_description']
           }
       set_feed(feed)
-
-
+      return "video added to feed<br><a href=\"\\\">Go home</a>"
   elif request.method == 'GET':
     if vid_id:
       try:
@@ -145,38 +152,56 @@ def upload_file(vid_id=None):
         video_description = video_description )
 
 def process_video(video):
-  video_key = hashlib.md5(video.read()).hexdigest()
-  video.save(os.path.join(APP_VIDEO, video_key))
-  video_url = url_for('feed', filename='videos/%s' % video_key)
+  vid_type = str(video.filename[-3:]).upper()
+
+  video_blob = video.read()
+  video_key = hashlib.md5(video_blob).hexdigest()
+  file_path = os.path.join(APP_VIDEO, video_key + ".%s" % vid_type)
+  f =open(file_path, 'w')
+  f.write(video_blob)
+  f.close()
+  video_url = SERVER_NAME + 'feed/videos/%s.%s' % (video_key, vid_type)
   
+  ( quality, duration ) = get_metadata(file_path)
+
+  print ( video_url, quality, vid_type, duration )
 
   return ( video_url, quality, vid_type, duration )
 
 
 def process_thumbnail(thumbnail):
-  thumb_key = hashlib.md5(thumbnail.read()).hexdigest()
-  thumbnail.save(os.path.join(APP_VIDEO, video_key))
-  thumb_url = url_for('feed', filename='videos/%s' % thumb_key)
-  return thumb_url
+  video_blob = thumbnail.read()
+  thumb_key = hashlib.md5(video_blob).hexdigest()
+  file_path = os.path.join(APP_THUMBNAIL, thumb_key)
+  f =open(file_path, 'w')
+  f.write(video_blob)
+  f.close()
+  thumbnail_url = SERVER_NAME + 'feed/thumbnails/%s' % thumb_key
+
+  return thumbnail_url
+   
 
 def get_feed():
-  with open(os.path.join(APP_FEED, 'feed.json'), 'w+') as f:
-    try:
-      return json.loads(f.read())
-    except ValueError:
-      return {}
+  try:
+    f = open(os.path.join(APP_FEED, 'feed.json'), 'r')
+    feed = json.loads(f.read())
+    f.close()
+  except:
+      feed = {}
+  return feed
 
 def set_feed(feed):
   last_updated_time = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S") + "+00:00"
   feed['lastUpdated'] = last_updated_time
-  with open(os.path.join(APP_FEED, 'feed.json'), 'w') as f:
-    try:
-      f.write(json.dumps(feed))
-    except:
-      return False
-    return True
+  f = open(os.path.join(APP_FEED, 'feed.json'), 'w') 
+  f.write(json.dumps(feed, indent=4)) 
+  f.close()
 
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+if __name__=="__main__":
+  app.secret_key = SECRET_KEY
+  app.run(host='0.0.0.0', debug=True, port=8080)

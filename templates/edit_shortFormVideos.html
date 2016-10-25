@@ -1,11 +1,11 @@
 <form action="" method=post enctype=multipart/form-data id="shortFormVideos">
-	Video Title (the title of the video) string
-	<input type="text" value="{%if video_title%}{{video_title}}{%endif%}" name="video_title" />
-  Description (description of the video) string (text area)
-  <textarea name="video_description" form="shortFormVideos">{%if video_description%}{{video_description}}{%endif%}</textarea>
-  Thumbnail (the thumbnail of the video, 800x450 or larger must be 16:9) file
-  <input type="file" name="video_thumbnail" />
-  Video (the video to be uploaded)
-  <input type="file" name="video" />
-  <input type=submit value=Sumbit>
+  Video Title (the title of the video) string<br />
+  <input type="text" value="{%if video_title%}{{video_title}}{%endif%}" name="video_title" /><br />
+  Description (description of the video) string (text area)<br />
+  <textarea name="video_description" form="shortFormVideos">{%if video_description%}{{video_description}}{%endif%}</textarea><br />
+  Thumbnail (the thumbnail of the video, 800x450 or larger must be 16:9) file<br />
+  <input type="file" name="video_thumbnail" /><br />
+  Video (the video to be uploaded)<br />
+  <input type="file" name="video" /><br />
+  <input type=submit value=Sumbit><br />
 </form>      

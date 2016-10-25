@@ -1,4 +1,22 @@
-import os, sys, subprocess
+import os, sys, subprocess, json
+
+#from video_metadata import get_multimedia_metadata, find_executable
+def get_metadata(file):
+
+    video_metadata = get_multimedia_metadata("test_video.mov", find_executable("ffprobe"))
+    
+    vertical_pixels = video_metadata['streams'][1]['height']
+    if vertical_pixels > 2159:
+        quality = "UHD"
+    elif vertical_pixels > 1079:
+        quality = "FHD"
+    else:
+        quality = "HD"
+
+    duration = float(video_metadata['streams'][1]['duration'])
+
+    return quality, duration
+#
 
 def is_executable(fname_abs):
     """
