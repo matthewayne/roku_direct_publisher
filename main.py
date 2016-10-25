@@ -88,7 +88,7 @@ def upload_file(vid_id=None):
       
       if not vid_id:
         try:
-          largest_id = max([vid["id"] for vid in feed['shortFormVideos']])
+          largest_id = max([int(vid["id"]) for vid in feed['shortFormVideos']])
           vid_id = largest_id + 1
         except KeyError:
           vid_id = 1
@@ -97,8 +97,9 @@ def upload_file(vid_id=None):
         dateAdded = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S") + "+00:00"
 
         feed["shortFormVideos"].append({
-          "id":vid_id,
+          "id":str(vid_id),
           "title": request.form['video_title'],
+          "releaseDate": dateAdded,
           "content":{
             "dateAdded": dateAdded,
             "videos": [
@@ -115,8 +116,9 @@ def upload_file(vid_id=None):
       else:
         target_index = next(index for (index, d) in enumerate(feed["shortFormVideos"]) if d["id"] == vid_id)
         feed["shortFormVideos"][target_index] = {
-          "id":vid_id,
+          "id":str(vid_id),
           "title": request.form['video_title'],
+          "releaseDate": dateAdded,
           "content":{
             "dateAdded": dateAdded,
             "videos": [
